@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+    @font-face {
+        font-family: "ALSHaussBold";
+        src: url("../fonts/ALSHaussBold.ttf") format("truetype");
+    }
+    @font-face {
+        font-family: "ALSHaussRegular";
+        src: url("../fonts/ALSHaussRegular.ttf") format("truetype");
+    }
+}
