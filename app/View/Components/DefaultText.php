@@ -11,12 +11,14 @@ class DefaultText extends Component
     public $color;
     public $text;
     public $class;
+    public $font;
 
-    public function __construct($color = "", $text = "", $class = "")
+    public function __construct($color = "", $text = "", $class = "", $font="")
     {
         $this->color = $color;
         $this->text = $text;
         $this->class = $class;
+        $this->font = $font;
     }
 
     public function render(): View|Closure|string

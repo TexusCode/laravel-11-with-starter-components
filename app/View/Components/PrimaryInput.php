@@ -17,8 +17,10 @@ class PrimaryInput extends Component
     public $model;
     public $style;
     public $class;
+    public $required;
+    public $focus;
 
-    public function __construct($value = "", $model = "", $placeholder = "", $name = "", $type = "text", $icon ="", $id ="", $style ="green", $class = "")
+    public function __construct($value = "", $focus = "", $model = "", $placeholder = "", $name = "", $type = "text", $icon ="", $id ="", $style ="green", $class = "", $required="")
     {
         $this->value = $value;
         $this->placeholder = $placeholder;
@@ -29,6 +31,8 @@ class PrimaryInput extends Component
         $this->model = $model;
         $this->style = $style;
         $this->class = $class;
+        $this->required = $required;
+        $this->focus = $focus;
     }
     public function render(): View|Closure|string
     {
