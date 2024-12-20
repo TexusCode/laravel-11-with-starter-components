@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
@@ -13,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 //         return view('welcome');
 //     });
 // });
-Route::middleware(['admin', 'guest'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    Route::get('/home', [Controller::class, 'index'])->name('user');
+Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('dashboard');
 });

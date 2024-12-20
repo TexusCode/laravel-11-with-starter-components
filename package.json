@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@tailwindcss/container-queries": "^0.1.1",
+        "hotkeys-js": "^3.13.9",
         "preline": "^2.6.0"
     }
 }

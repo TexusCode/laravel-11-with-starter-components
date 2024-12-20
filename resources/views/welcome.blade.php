@@ -10,6 +10,7 @@
 </head>
 
 <body class="m-4">
+    {{-- @livewire('test') --}}
     <x-primary-button type="submit" click="on" style="orange" class="w-32 mt-10 mb-10" />
     <x-primary-text color="green" text="Lorem, ipsum dolor sit amet consectetur Adipisicing elit. In, est." />
     <x-default-text text="Lorem, ipsum dolor sit amet consectetur Adipisicing elit. In, est." class="mt-10" />
