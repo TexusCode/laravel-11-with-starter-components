@@ -12,7 +12,7 @@
 <body>
     <div class="grid w-screen min-h-screen p-4 lg:p-16 lg:grid-cols-2 2xl:grid-cols-3 bg-green-30">
         <div class="relative flex items-center justify-center p-6 bg-white lg:p-16 rounded-2xl">
-            <form action="{{ route('registerpost') }}" method="POST" class="w-full">
+            <form action="{{ route('registerpost') }}" method="POST" class="w-full max-w-96">
                 @csrf
                 <div>
                     <x-primary-text text="Регистрация" class="text-center" />
