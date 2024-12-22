@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('changes', function (Blueprint $table) {
             $table->id();
+            $table->string('subtotal');
+            $table->string('returns');
+            $table->string('expenditures');
+            $table->string('debts');
+            $table->string('total');
             $table->timestamps();
         });
     }

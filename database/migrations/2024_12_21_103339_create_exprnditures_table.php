@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('exprnditures', function (Blueprint $table) {
             $table->id();
+            $table->string('price');
+            $table->longText('description');
             $table->timestamps();
         });
     }

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('revisions', function (Blueprint $table) {
             $table->id();
+            $table->string('product_id');
+            $table->string('old_quantity');
+            $table->string('new_quantity');
             $table->timestamps();
         });
     }

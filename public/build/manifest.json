@@ -1,0 +1,24 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-DENpTZfr.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/fonts/ALSHaussBold.ttf": {
+    "file": "assets/ALSHaussBold-z0dNSWJy.ttf",
+    "src": "resources/fonts/ALSHaussBold.ttf"
+  },
+  "resources/fonts/ALSHaussRegular.ttf": {
+    "file": "assets/ALSHaussRegular-CVy-tRbL.ttf",
+    "src": "resources/fonts/ALSHaussRegular.ttf"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CNBrZsV9.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-CIgf0F6L.css"
+    ]
+  }
+}
