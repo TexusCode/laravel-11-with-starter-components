@@ -2186,6 +2186,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'Illuminate\\Database\\Events\\MigrationStarted' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationStarted.php',
         'Illuminate\\Database\\Events\\MigrationsEnded' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsEnded.php',
         'Illuminate\\Database\\Events\\MigrationsEvent' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsEvent.php',
+        'Illuminate\\Database\\Events\\MigrationsPruned' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsPruned.php',
         'Illuminate\\Database\\Events\\MigrationsStarted' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/MigrationsStarted.php',
         'Illuminate\\Database\\Events\\ModelPruningFinished' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/ModelPruningFinished.php',
         'Illuminate\\Database\\Events\\ModelPruningStarting' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Events/ModelPruningStarting.php',

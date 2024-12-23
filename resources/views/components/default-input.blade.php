@@ -6,7 +6,8 @@
     [&:not(:placeholder-shown)]:pt-6
     [&:not(:placeholder-shown)]:pb-2
     autofill:pt-6
-    autofill:pb-2" placeholder="{{ $placeholder }}" value="{{ $value }}" name="{{ $name }}" {{ $required === 'on' ? 'required':'' }}>
+    autofill:pb-2" placeholder="{{ $placeholder }}" value="{{ $value }}" name="{{ $name }}" {{ $required==='on'
+            ? 'required' :'' }}>
 
 
 

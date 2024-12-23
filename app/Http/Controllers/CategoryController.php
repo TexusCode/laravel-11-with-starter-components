@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
     public function categories()
     {
         $categories = Category::all();
+        
+
         return view('admin.pages.categories', compact('categories'));
     }
 
@@ -18,7 +21,7 @@ class CategoryController extends Controller
         $validate = $request->validate(
             [
                 'name' => 'required|min:3',
-                'photo' => 'nullable|file|max:2048',
+                'photo' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,webp,gif',
             ]
         );
 
@@ -26,8 +29,8 @@ class CategoryController extends Controller
         $category->name = $validate['name'];
 
         if ($request->hasFile('photo')) {
-            $filePath = $request->file('photo')->store('categories', 'public');
-            $category->photo = $filePath;
+            $path = Storage::disk('public')->put('categories', $request->file('photo'));
+            $category->photo = $path;
         }
 
         $category->save();
@@ -35,7 +38,8 @@ class CategoryController extends Controller
         return redirect()->back()->with('message', 'Категория успешно добавлена!');
     }
 
-    public function add_product_post($id)
+
+    public function delete_category_post($id)
     {
         $category = Category::findOrFail($id)->delete();
 

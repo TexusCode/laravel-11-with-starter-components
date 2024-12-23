@@ -48,8 +48,11 @@
         </div>
     </div>
 
-    <div class="w-full p-2  lg:ps-72">
+    <div class="w-full px-4 py-4  lg:ps-72">
         <main>
+            <div class="mb-4">
+                @include('admin.partials.message-session')
+            </div>
             @yield('content')
         </main>
     </div>
