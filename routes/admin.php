@@ -30,9 +30,10 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     //Brands
     Route::get('/brands', [BrandController::class, 'brands'])->name('brands');
     Route::post('/add-brand-post', [BrandController::class, 'add_brand_post'])->name('add-brand-post');
-    Route::post('/delete-brand-post', [BrandController::class, 'delete_brand_post'])->name('delete-brand-post');
+    Route::post('/delete-brand-post/{id}', [BrandController::class, 'delete_brand_post'])->name('delete-brand-post');
     //Units
     Route::get('/units', [UnitController::class, 'units'])->name('units');
     Route::post('/add-unit-post', [UnitController::class, 'add_unit_post'])->name('add-unit-post');
+    Route::post('/delete-unit-post/{id}', [UnitController::class, 'delete_unit_post'])->name('delete-unit-post');
 
 });

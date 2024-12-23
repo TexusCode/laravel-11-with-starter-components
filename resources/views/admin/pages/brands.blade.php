@@ -6,8 +6,8 @@
         @csrf
         <div class="flex items-center gap-4 mt-4">
             <div class="w-full">
-                <x-default-input placeholder="Название бренда" value="" type="text" required="on" name="name"
-                    class="col-span-full" />
+                <x-default-input placeholder="Название бренда" value="{{ old('name') }}" type="text" required="on"
+                    name="name" class="col-span-full" />
             </div>
             <label for="photo"
                 class="relative w-16 h-16 col-span-4 mt-0 overflow-hidden duration-300 rounded-lg cursor-pointer bg-gray-10 hover:bg-gray-200 lg:col-span-1">
@@ -108,7 +108,7 @@
                             </td>
                             <td class="size-px whitespace-nowrap">
                                 <div class="px-6 py-1.5 flex gap-2 justify-end">
-                                    <form action="{{ route('delete-category-post', $brand->id) }}" method="POST">
+                                    <form action="{{ route('delete-brand-post', $brand->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="text-red-500">Удалить</button>
                                     </form>
@@ -120,40 +120,6 @@
                 </table>
             </div>
             <!-- End Table -->
-
-            <!-- Footer -->
-            <div class="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-200">
-                <div>
-                    <p class="text-sm text-gray-600">
-                        <span class="font-semibold text-gray-800">12</span> results
-                    </p>
-                </div>
-
-                <div>
-                    <div class="inline-flex gap-x-2">
-                        <button type="button"
-                            class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50">
-                            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m15 18-6-6 6-6" />
-                            </svg>
-                            Prev
-                        </button>
-
-                        <button type="button"
-                            class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50">
-                            Next
-                            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- End Footer -->
         </div>
 
     </div>

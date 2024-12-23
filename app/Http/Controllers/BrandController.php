@@ -33,12 +33,14 @@ class BrandController extends Controller
 
         $brand->save();
 
-        return redirect()->back()->with('message', 'Категория успешно добавлена!');
+        return redirect()->back()->with('message', 'Бренд успешно добавлена!');
     }
 
-    public function delete_brand_post(Request $request)
+    public function delete_brand_post($id)
     {
+        $brand = Brand::findOrFail($id)->delete();
 
+        return redirect()->back()->with('message', 'Бренд успешно удалено!');
     }
 
 }

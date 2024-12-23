@@ -6,8 +6,8 @@
         @csrf
         <div class="flex items-center gap-4 mt-4">
             <div class="w-full">
-                <x-default-input placeholder="Название категория" value="" type="text" required="on" name="name"
-                    class="col-span-full" />
+                <x-default-input placeholder="Название категория" value="{{ old('name') }}" type="text" required="on"
+                    name="name" class="col-span-full" />
             </div>
             <label for="photo"
                 class="relative w-16 h-16 col-span-4 mt-0 overflow-hidden duration-300 rounded-lg cursor-pointer bg-gray-10 hover:bg-gray-200 lg:col-span-1">
