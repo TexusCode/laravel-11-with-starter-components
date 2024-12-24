@@ -28,5 +28,10 @@ class SupplierController extends Controller
         ]);
         return back()->with('message', 'Поставщик усппешно добавлено!');
     }
-    public function delete_supplier_post($id) {}
+    public function delete_supplier_post($id)
+    {
+        $category = Supplier::findOrFail($id)->delete();
+
+        return redirect()->back()->with('message', 'Поставщик успешно удалено!');
+    }
 }

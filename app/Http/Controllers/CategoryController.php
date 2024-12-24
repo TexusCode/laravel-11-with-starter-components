@@ -45,5 +45,4 @@ class CategoryController extends Controller
 
         return redirect()->back()->with('message', 'Категория успешно удалено!');
     }
-
 }

@@ -3,6 +3,8 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmpliyoneController;
+use App\Http\Controllers\ExprnditureController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -23,7 +25,9 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     //Products
     Route::get('/products', [ProductController::class, 'products'])->name('products');
     Route::get('/add-product', [ProductController::class, 'add_product'])->name('add-product');
-    Route::get('/add-product-post', [ProductController::class, 'add_product_post'])->name('add-product-post');
+    Route::post('/add-product-post', [ProductController::class, 'add_product_post'])->name('add-product-post');
+    Route::post('/delete-product-post/{id}', [ProductController::class, 'delete_product_post'])->name('delete-product-post');
+    Route::post('/product-search', [ProductController::class, 'product_search'])->name('product-search');
     //Categories
     Route::get('/categories', [CategoryController::class, 'categories'])->name('categories');
     Route::post('/add-category-post', [CategoryController::class, 'add_category_post'])->name('add-category-post');
@@ -40,5 +44,13 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/suppliers', [SupplierController::class, 'suppliers'])->name('suppliers');
     Route::post('/add-supplier-post', [SupplierController::class, 'add_supplier_post'])->name('add-supplier-post');
     Route::post('/delete-supplier-post/{id}', [SupplierController::class, 'delete_supplier_post'])->name('delete-supplier-post');
-
+    //Expenditures
+    Route::get('/expenditures', [ExprnditureController::class, 'expenditures'])->name('expenditures');
+    Route::post('/add-expenditure', [ExprnditureController::class, 'add_expenditure'])->name('add-expenditure');
+    Route::post('/delete-expenditure/{id}', [ExprnditureController::class, 'delete_expenditure'])->name('delete-expenditure');
+    //Empliyones
+    Route::get('/empliyones/{id?}', [EmpliyoneController::class, 'empliyones'])->name('empliyones');
+    Route::post('/add-empliyone/{id?}', [EmpliyoneController::class, 'add_empliyone'])->name('add-empliyone');
+    Route::post('/delete-empliyone/{id}', [EmpliyoneController::class, 'delete_empliyone'])->name('delete-empliyone');
+    Route::post('/status-empliyone/{id}', [EmpliyoneController::class, 'status_empliyone'])->name('status-empliyone');
 });

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form class="font-ALSHaussRegular" action="{{ route('add-product-post') }}" enctype="multipart/form-data">
+<form class="font-ALSHaussRegular" action="{{ route('add-product-post') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <x-primary-text text="Добавит новый товар" />
     <div class="grid gap-4 md:grid-cols-4">
@@ -34,10 +34,10 @@
                 </label>
             </div>
             <div class="relative">
-                <select name="supplies"
+                <select name="supplier"
                     class="peer p-4 pe-9 block w-full border-gray-200 rounded-lg text-lg focus:border-green-20 focus:ring-green-20 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
                     @foreach ($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    <option value="{{ $supplier->id }}">{{ $supplier->company_name }}</option>
                     @endforeach
                 </select>
                 <label

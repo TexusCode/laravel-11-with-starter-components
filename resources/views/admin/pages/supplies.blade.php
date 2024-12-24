@@ -44,6 +44,20 @@
                                     </span>
                                 </div>
                             </th>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <div class="flex items-center gap-x-2">
+                                    <span class="text-xs font-semibold tracking-wide text-gray-800 uppercase">
+                                        Телефон
+                                    </span>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <div class="flex items-center gap-x-2">
+                                    <span class="text-xs font-semibold tracking-wide text-gray-800 uppercase">
+                                        Адрес
+                                    </span>
+                                </div>
+                            </th>
 
                             <th scope="col" class="px-6 py-3 text-end"></th>
                         </tr>
@@ -67,6 +81,20 @@
                                 <div class="px-6 py-3">
                                     <span class="block text-sm font-semibold text-gray-800">{{
                                         $supplier->products->count() }}</span>
+                                </div>
+                            </td>
+                            <td class="h-px w-72 whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span class="block text-sm font-semibold text-gray-800">
+                                        {{ $supplier->phone }}
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="h-px w-72 whitespace-nowrap">
+                                <div class="px-6 py-3">
+                                    <span class="block text-sm font-semibold text-gray-800">
+                                        {{ $supplier->location ? $supplier->location : 'Нет адреса'}}
+                                    </span>
                                 </div>
                             </td>
                             <td class="size-px whitespace-nowrap">
