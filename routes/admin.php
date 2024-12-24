@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,9 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/units', [UnitController::class, 'units'])->name('units');
     Route::post('/add-unit-post', [UnitController::class, 'add_unit_post'])->name('add-unit-post');
     Route::post('/delete-unit-post/{id}', [UnitController::class, 'delete_unit_post'])->name('delete-unit-post');
+    //Suppliers
+    Route::get('/suppliers', [SupplierController::class, 'suppliers'])->name('suppliers');
+    Route::post('/add-supplier-post', [SupplierController::class, 'add_supplier_post'])->name('add-supplier-post');
+    Route::post('/delete-supplier-post/{id}', [SupplierController::class, 'delete_supplier_post'])->name('delete-supplier-post');
 
 });
