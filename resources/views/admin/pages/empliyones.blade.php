@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 <div class="font-ALSHaussRegular">
-    <x-primary-text text="{{ $empliyone ? 'Изменить':'Добавить' }} новый сотрудник" />
+    <x-primary-text text="{{ $empliyone ? 'Изменить':'Добавить новый' }} сотрудник" />
     <form action="{{ route('add-empliyone',  $empliyone ? $empliyone->id:'') }}" method="POST"
         enctype="multipart/form-data">
         @csrf

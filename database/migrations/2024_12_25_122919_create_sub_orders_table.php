@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('sub_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->string('order_id');
+            $table->string('product_id');
+            $table->string('price');
+            $table->string('unit');
+            $table->string('quantity');
             $table->string('subtotal');
             $table->string('discount')->nullable();
-            $table->string('customer_id')->nullable();
-            $table->string('payment_type')->default('Наличными');
-            $table->string('payment_status')->default('Оплачено');
             $table->string('total');
-            $table->string('note')->nullable();
-            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('sub_orders');
     }
 };

@@ -22,24 +22,28 @@ class AuthController extends Controller
     public function loginpost(Request $request)
     {
         $validatedData = $request->validate([
-            'phone' => 'required|numeric|digits_between:9,12',
+            'phone' => 'required|numeric|digits:9',
             'password' => 'required|string|min:6',
         ]);
 
         $user = User::where('phone', $validatedData['phone'])->first();
 
         if (!$user) {
-            return back()->with('message', 'Пользователь с таким номером телефона не найден.');
+            return back()->withErrors(['phone' => 'Пользователь с таким номером телефона не найден.'])->withInput();
         }
 
         if (!Hash::check($validatedData['password'], $user->password)) {
-            return back()->with('message', 'Неверный пароль.');
+            return back()->withErrors(['password' => 'Неверный пароль.'])->withInput();
         }
 
-        Auth::login($user, $remember=true);
+        Auth::login($user, true);
 
-        return redirect()->route('dashboard')->with('success', 'Добро пожаловать, администратор!');
+        return match (Auth::user()->role) {
+            'pos' => redirect()->route('pos')->with('success', 'Добро пожаловать, кассир!'),
+            'admin' => redirect()->route('dashboard')->with('success', 'Добро пожаловать, администратор!'),
+        };
     }
+
 
 
     public function registerpost(Request $request)
@@ -51,9 +55,9 @@ class AuthController extends Controller
         ]);
         $phone = User::where('phone', $request->phone)->first();
 
-        if($phone){
+        if ($phone) {
             return back()->with('message', 'Этот номер телефон уже зарегистрирован. Войдите в систему.');
-        }else{
+        } else {
             $user = new User();
             $user->name = $validatedData['name'];
             $user->phone = $validatedData['phone'];
