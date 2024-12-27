@@ -76,7 +76,7 @@
             @foreach ($products as $product)
             <div
                 class="w-full bg-white p-1 rounded-lg flex justify-between gap-4 items-center relative whitespace-nowrap">
-                <div class="flex gap-4 items-center">
+                <div class="flex gap-4 items-center w-full">
                     @if($product->image)
                     <img src="{{ asset('storage/'.$product->image) }}" alt="Image"
                         class="h-10 w-10 rounded-md object-cover">
@@ -84,14 +84,14 @@
                     <img src="{{ asset('assets/images/noimage.webp') }}" alt="Image"
                         class="h-10 w-10 rounded-md object-cover">
                     @endif
-                    <div class="flex flex-col gap-1">
+                    <div class="flex flex-col gap-1 basis-1/4">
                         <p class="text-sm leading-none max-w-56 line-clamp-1 whitespace-normal">{{$product->name}}</p>
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{ $product->sell_price }}c</p>
                     </div>
                     <div class="flex flex-col gap-1">
                         <p class="text-sm leading-none">Остаток:</p>
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{
-                            $product->quantity.' '.$product->unit->name }}</p>
+                            $product->quantity }}{{ $product->unit->name ?? 'шт' }}</p>
                     </div>
                 </div>
                 <button wire:click="add_to_cart({{ $product->id }})"

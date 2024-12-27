@@ -15,7 +15,9 @@
 
     <div class="sticky top-0 inset-x-0 z-20 bg-green-20 border-y px-4 sm:px-6 lg:px-8 lg:hidden">
         <div class="flex items-center py-2 justify-between">
-            <img src="{{ asset('assets/logo/Logo White.svg') }}" alt="Logo" class="h-7">
+            <a href="{{ route('dashboard') }}">
+                <img src="{{ asset('assets/logo/Logo White.svg') }}" alt="Logo" class="h-7">
+            </a>
             <button type="button"
                 class="size-8 flex justify-center items-center gap-x-2 border border-gray-200 text-gray-800 hover:text-gray-500 rounded-lg focus:outline-none focus:text-gray-500 disabled:opacity-50 disabled:pointer-events-none"
                 aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-application-sidebar"

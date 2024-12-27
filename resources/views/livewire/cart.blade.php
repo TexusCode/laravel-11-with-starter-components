@@ -14,8 +14,9 @@
                     class="h-10 w-10 rounded-md object-cover">
                 @endif
                 <div class="flex flex-col gap-1">
-                    <p class="text-sm leading-none">4646466</p>
-                    <p class="text-sm leading-none text-green-20 font-ALSHaussBold">100c</p>
+                    <p class="text-sm leading-none">{{ $cart->product->sku }}</p>
+                    <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{ $cart->product->sell_price }}c
+                    </p>
                 </div>
             </div>
             <div class="bg-gray-300 p-1 rounded-lg">

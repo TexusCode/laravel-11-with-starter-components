@@ -16,8 +16,13 @@ class Products extends Component
     public $suppliers;
     public $products;
     public $barcode;
-    public $selected_cart = 1;
+    public $selected_cart;
+    protected $listeners = ["updatedSelectedCart" => "selectedCartUpdated"];
 
+    public function selectedCartUpdated($id)
+    {
+        $this->selected_cart = $id;
+    }
     public function mount()
     {
         $this->categories = Category::all();

@@ -18,14 +18,14 @@ class ProductFactory extends Factory
     {
         return [
             "name" => $this->faker->name(),
-            "sku" => mt_rand(5, 10),
+            "sku" => mt_rand(10000, 99999),
             "category_id" => 1,
             "brand_id" => 1,
             "unit_id" => 1,
-            "quantity" => mt_rand(1, 10),
+            "quantity" => mt_rand(10, 100),
             "supplier" => 1,
-            "buy_price" => mt_rand(1, 10),
-            "sell_price" => mt_rand(1, 10),
+            "buy_price" => mt_rand(5, 500),
+            "sell_price" => mt_rand(20, 1000),
         ];
     }
 }

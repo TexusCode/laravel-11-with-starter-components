@@ -9,6 +9,7 @@ use Livewire\Component;
 class Cart extends Component
 {
     public $cart;
+    public $selected_cart;
     public $subtotal;
     public $discount = 20;
     public $total;
@@ -19,7 +20,10 @@ class Cart extends Component
     }
     public function updatedCart()
     {
-        $this->cart = SubCart::all();
+        $this->selected_cart = 1;
+        $this->dispatch('updatedSelectedCart', id: $this->selected_cart);
+
+        $this->cart = SubCart::where('cart_id', $this->selected_cart)->get();
         $this->subtotal = $this->cart->sum(function ($item) {
             return $item->quantity * $item->product->sell_price;
         });
