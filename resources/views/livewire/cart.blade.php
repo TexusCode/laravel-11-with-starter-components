@@ -1,8 +1,18 @@
 <div class="w-[600px] bg-green-20 rounded-3xl p-2 flex flex-col gap-2 whitespace-nowrap">
     <div class="flex bg-white p-1 rounded-2xl justify-between items-center">
-        <p class="text-lg text-gray-40  font-ALSHaussBold ml-1">Order #1</p>
+        <p class="text-lg text-gray-40  font-ALSHaussBold ml-1">Заказ №000{{ $order_no }}</p>
         <div class="flex gap-1">
-            <button type="button" class="bg-red-500 hover:bg-red-400 active:bg-red-600 p-1 text-white rounded-xl">
+            <button type="button" wire:click="hotkey"
+                class="bg-green-20 hover:bg-green-10 active:bg-green-30 p-1 text-white rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-command">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />
+                </svg>
+            </button>
+            <button type="button" wire:click="stop_cart"
+                class="bg-blue-500 hover:bg-blue-400 active:bg-blue-600 p-1 text-white rounded-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-hand-stop">
@@ -14,8 +24,15 @@
                         d="M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" />
                 </svg>
             </button>
-            <button type="button" wire:click="all_discount"
-                class="bg-red-500 hover:bg-red-400 active:bg-red-600 p-1 text-white rounded-xl">
+            <button type="button" id="discount" wire:click="all_discount_modal_opener"
+                class="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 p-1 text-white rounded-xl" x-data x-init="
+                    document.addEventListener('keydown', (event) => {
+                        if (event.shiftKey && event.key === 'D') {
+                            event.preventDefault();
+                            document.getElementById('discount').click();
+                        }
+                    });
+                ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount">
@@ -42,6 +59,16 @@
             </button>
         </div>
     </div>
+    @if($carts->count()>1)
+    <div class="bg-white p-2 rounded-2xl grid grid-cols-3 gap-2">
+        @foreach ($carts as $cart)
+        <button type="button" wire:click="selected_cart_id({{ $cart->id }})"
+            class="bg-green-20 hover:bg-green-10 active:bg-green-30 py-1 px-3 rounded-xl text-white text-center">
+            <p>Корзина №{{ $cart->id }}</p>
+        </button>
+        @endforeach
+    </div>
+    @endif
     <div
         class="flex flex-col gap-2 overflow-y-scroll pr-1 h-full [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
         @foreach ($items as $item)
@@ -63,8 +90,9 @@
             </div>
             <div class="flex items-center gap-1">
                 <button wire:click="minus({{ $item->id }})" type="button"
-                    class="{{ $item->quantity === '1' ? 'bg-red-500 hover:bg-red-400 active:bg-red-600' :'bg-green-20 hover:bg-green-10 active:bg-green-30' }} text-white p-1 rounded-md">
+                    class="bg-red-500 hover:bg-red-400 active:bg-red-600 text-white p-1 rounded-md">
                     {{-- {{ $item->quantity === '1' ?'X':'-'}} --}}
+                    @if($item->quantity > 1)
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-circle-minus">
@@ -72,6 +100,18 @@
                         <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
                         <path d="M9 12l6 0" />
                     </svg>
+                    @else
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 7l16 0" />
+                        <path d="M10 11l0 6" />
+                        <path d="M14 11l0 6" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </svg>
+                    @endif
                 </button>
                 <label class="px-1 w-7 text-center text-base">{{ $item->quantity }}</label>
                 <button wire:click="plus({{ $item->id }})" type="button"
@@ -88,7 +128,7 @@
             </div>
             <div class="mr-1">
                 <button wire:click="item_discount_modal_opene({{ $item->id }})" type="button"
-                    class="bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white p-1 rounded-md">
+                    class="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white p-1 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount">
@@ -125,23 +165,51 @@
 
             </div>
         </div>
-        <button class="bg-green-20 text-white font-ALSHaussBold text-xl py-2 rounded-xl">Order place</button>
+        <button type="button" id="payment" wire:click="order_place"
+            class="bg-green-20 flex items-center gap-2 justify-center hover:bg-green-10 active:bg-green-30 text-white font-ALSHaussBold text-xl py-2 rounded-xl"
+            x-data x-init="
+                document.addEventListener('keydown', (event) => {
+                    if (event.shiftKey && event.key === 'Enter') {
+                        event.preventDefault();
+                        document.getElementById('payment').click();
+                    }
+                });
+            ">
+            <span>Оплатить</span>
+            <svg wire:loading class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-loader">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 6l0 -3" />
+                <path d="M16.25 7.75l2.15 -2.15" />
+                <path d="M18 12l3 0" />
+                <path d="M16.25 16.25l2.15 2.15" />
+                <path d="M12 18l0 3" />
+                <path d="M7.75 16.25l-2.15 2.15" />
+                <path d="M6 12l-3 0" />
+                <path d="M7.75 7.75l-2.15 -2.15" />
+            </svg>
+        </button>
     </div>
 
     {{-- Modals --}}
     @if($discount_modal)
     <div class="absolute duration-500 top-0 left-0 bg-green-20/60 w-full h-full flex justify-center items-center">
         <div class="w-56 bg-white rounded-3xl p-4 relative">
-            <p class="text-base mb-4">Скидка один товара</p>
+            <p class="text-base mb-4 max-w-32 whitespace-normal leading-5">{{ $discount_modal_type == "item" ?
+                'Скидка
+                для одного
+                товара' : 'Скидка для всех товаров' }}
+            </p>
             <div class="grid gap-4">
                 <select wire:model.live="discount_type"
                     class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300">
                     <option value="fixed">Фиксированный</option>
                     <option value="percent">Просентный</option>
                 </select>
-                <input type="number" wire:model.live="discount_model"
+                <input type="number" wire:model.live="discount_model" placeholder="Скидка"
                     class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300">
-                <button
+                <button type="button" wire:click="add_discount"
                     class="bg-green-20 hover:bg-green-10 active:bg-green-30 text-white font-ALSHaussRegular text-xl py-2 rounded-xl">Применить</button>
             </div>
             <button type="button" wire:click="discount_modal_close"
@@ -153,8 +221,10 @@
                     <path d="M18 6l-12 12" />
                     <path d="M6 6l12 12" />
                 </svg>
+
             </button>
         </div>
     </div>
     @endif
+
 </div>

@@ -17,18 +17,55 @@ class Products extends Component
     public $products;
     public $barcode;
     public $selected_cart;
+    //Filters
+    public $category = "";
+    public $brand = "";
+    public $supplier = "";
+    //Listeners
     protected $listeners = ["updatedSelectedCart" => "selectedCartUpdated"];
 
     public function selectedCartUpdated($id)
     {
         $this->selected_cart = $id;
     }
+    public function clean_filter()
+    {
+        $this->reset('category', 'brand', 'supplier');
+    }
+    public function updatedCategory()
+    {
+        $this->category = $this->category;
+    }
+    public function updatedBrand()
+    {
+        $this->brand = $this->brand;
+    }
+    public function updatedSupplier()
+    {
+        $this->supplier = $this->supplier;
+    }
     public function mount()
+    {
+        $this->updatedProduct();
+    }
+    public function updatedProduct()
     {
         $this->categories = Category::all();
         $this->brands = Brand::all();
         $this->suppliers = Supplier::all();
-        $this->products = Product::all();
+        $products = Product::query();
+
+        if ($this->category) {
+            $products->where("category_id", $this->category);
+        }
+        if ($this->brand) {
+            $products->where("brand_id", $this->brand);
+        }
+        if ($this->supplier) {
+            $products->where("supplier", $this->supplier);
+        }
+
+        $this->products = $products->take(100)->get();
     }
     public function add_to_cart($id)
     {
@@ -61,7 +98,7 @@ class Products extends Component
             $this->reset('barcode');
             $this->dispatch('cartUpdated');
         } else {
-            $products = Product::where('name', 'like', "%$this->barcode%")->get();
+            $products = Product::where('name', 'like', "%$this->barcode%")->take(100)->get();
             $this->products = $products;
         }
     }

@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-DENpTZfr.css",
+    "file": "assets/app-Ccql_Oxn.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -13,12 +13,9 @@
     "src": "resources/fonts/ALSHaussRegular.ttf"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CNBrZsV9.js",
+    "file": "assets/app-DMcHtbmW.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true,
-    "css": [
-      "assets/app-CIgf0F6L.css"
-    ]
+    "isEntry": true
   }
 }

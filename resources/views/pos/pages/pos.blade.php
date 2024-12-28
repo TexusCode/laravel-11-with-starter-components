@@ -35,5 +35,8 @@
     {{-- Start Cart --}}
     @livewire('cart')
     {{-- End Cart --}}
+    {{-- Start OrderPlace --}}
+    @livewire('order-place')
+    {{-- End OrderPlace --}}
 </div>
 @endsection
