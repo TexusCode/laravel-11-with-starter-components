@@ -60,7 +60,7 @@
         </div>
     </div>
     @if($carts->count()>1)
-    <div class="bg-white p-2 rounded-2xl grid grid-cols-3 gap-2">
+    <div class="bg-white p-2 rounded-2xl grid grid-cols-2 gap-2">
         @foreach ($carts as $cart)
         <button type="button" wire:click="selected_cart_id({{ $cart->id }})"
             class="bg-green-20 hover:bg-green-10 active:bg-green-30 py-1 px-3 rounded-xl text-white text-center">

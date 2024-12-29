@@ -91,6 +91,11 @@
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{ $product->sell_price }}c</p>
                     </div>
                     <div class="flex flex-col gap-1">
+                        <p class="text-sm leading-none">Артикул:</p>
+                        <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{
+                            $product->sku }}</p>
+                    </div>
+                    <div class="flex flex-col gap-1">
                         <p class="text-sm leading-none">Остаток:</p>
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{
                             $product->quantity }}{{ $product->unit->name ?? 'шт' }}</p>

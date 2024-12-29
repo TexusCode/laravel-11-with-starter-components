@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpliyoneController;
 use App\Http\Controllers\ExprnditureController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -53,4 +54,6 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::post('/add-empliyone/{id?}', [EmpliyoneController::class, 'add_empliyone'])->name('add-empliyone');
     Route::post('/delete-empliyone/{id}', [EmpliyoneController::class, 'delete_empliyone'])->name('delete-empliyone');
     Route::post('/status-empliyone/{id}', [EmpliyoneController::class, 'status_empliyone'])->name('status-empliyone');
+    //Orders
+    Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
 });

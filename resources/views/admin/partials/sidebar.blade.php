@@ -104,7 +104,7 @@
                 <ul class="pt-1 space-y-1 ps-8">
                     <li>
                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-base text-white rounded-lg hover:bg-white/10 focus:outline-none focus:bg-white/10"
-                            href="#">
+                            href="{{ route('orders') }}">
                             Все продажи
                         </a>
                     </li>

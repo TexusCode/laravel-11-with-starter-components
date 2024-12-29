@@ -3,7 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\SubCart;
+use App\Models\SubOrder;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class OrderPlace extends Component
@@ -14,6 +18,7 @@ class OrderPlace extends Component
     public $total;
     public $discount;
     public $return;
+    public $payment_type = 'Алиф Моби';
     public $money;
     public $note;
     public $modal = false;
@@ -22,6 +27,43 @@ class OrderPlace extends Component
     public function mount()
     {
         $this->updatedOrderPlace($id = null);
+    }
+    public function updatedPayment_type()
+    {
+        $this->payment_type = $this->payment_type;
+    }
+    public function order_place()
+    {
+        $maxorder = Order::max("id") + 1 ?? 1;
+        $order = new Order();
+        $order->user_id = Auth::user()->id;
+        $order->subtotal = $this->subtotal;
+        $order->total = $this->total;
+        $order->discount = $this->discount;
+        $order->payment_type = $this->payment_type;
+        $order->note = $this->note;
+        $order->save();
+        $this->cart->delete();
+
+        foreach ($this->items as $item) {
+            $suborder = new SubOrder();
+            $suborder->order_id = $order->id;
+            $suborder->product_id = $item->product_id;
+            $suborder->quantity = $item->quantity;
+            $suborder->discount = $item->discount;
+            $suborder->price = $item->product->sell_price;
+            $suborder->subtotal = $item->quantity * $item->product->sell_price;
+            $suborder->total = ($item->quantity * $item->product->sell_price) - ($item->discount ?? 0);
+            $suborder->unit = $item->product->unit->name ?? 'шт';
+            $suborder->save();
+            $product = Product::find($item->product_id);
+            $product->quantity -= $item->quantity;
+            $product->save();
+            $item->delete();
+        }
+        $this->modal = false;
+        $this->reset('total', 'subtotal', 'money', 'return', 'note', 'discount', 'cart', 'items');
+        return redirect()->route('pos');
     }
     public function modal_close()
     {

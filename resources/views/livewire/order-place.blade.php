@@ -20,7 +20,7 @@
             </button>
             <div class="flex flex-col">
                 <span class="mb-1 mt-3 text-lg">Способ оплата:</span>
-                <select wire:model.live="discount_type"
+                <select wire:model.live="payment_type"
                     class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300">
                     <option value="Наличными">Наличными</option>
                     <option value="Алиф Моби">Алиф Моби</option>
@@ -32,7 +32,7 @@
                 <input type="text" wire:model.live="money"
                     class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300">
                 <span class="mb-1 mt-3 text-lg">Примечания к заказу:</span>
-                <textarea cols="30" rows="3"
+                <textarea cols="30" rows="3" wire:model.live="note"
                     class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300"
                     placeholder="Заметка..."></textarea>
             </div>
