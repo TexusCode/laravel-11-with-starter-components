@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
+use App\Models\Customer;
+use App\Models\Debt;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\SubCart;
@@ -18,9 +20,12 @@ class OrderPlace extends Component
     public $total;
     public $discount;
     public $return;
-    public $payment_type = 'Алиф Моби';
+    public $paymentType = 'Алиф Моби';
     public $money;
+    public $customerName;
+    public $customerPhone;
     public $note;
+    public $debt = false;
     public $modal = false;
     public $listeners = ["OrderPlace" => "updatedOrderPlace"];
 
@@ -28,19 +33,49 @@ class OrderPlace extends Component
     {
         $this->updatedOrderPlace($id = null);
     }
-    public function updatedPayment_type()
+    public function updatedpaymentType()
     {
-        $this->payment_type = $this->payment_type;
+        $this->paymentType = $this->paymentType;
+        if($this->paymentType == 'В долг')
+        {
+            $this->debt = true;
+        }else{
+            $this->debt = false;
+
+        }
+        $this->updatedOrderPlace($id = null);
     }
     public function order_place()
     {
+        if($this->paymentType == 'В долг')
+        {
+            if($this->customerName && $this->customerPhone)
+            {
+                $customer = Customer::updateOrCreate(
+                    ['phone' => $this->customerPhone], // Attributes to search for
+                    [
+                        'name' => $this->customerName,
+                        'phone' => $this->customerPhone,
+                        'location' => 'empty'
+                    ]
+                );
+                Debt::create(
+                [
+                    'customer_id'=>$customer->id,
+                    'price'=>$this->total
+                ]
+                    );
+            }else{
+                return;
+            }
+        }
         $maxorder = Order::max("id") + 1 ?? 1;
         $order = new Order();
         $order->user_id = Auth::user()->id;
         $order->subtotal = $this->subtotal;
         $order->total = $this->total;
         $order->discount = $this->discount;
-        $order->payment_type = $this->payment_type;
+        $order->payment_type = $this->paymentType;
         $order->note = $this->note;
         $order->save();
         $this->cart->delete();

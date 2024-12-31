@@ -25,8 +25,8 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     //Products
     Route::get('/products', [ProductController::class, 'products'])->name('products');
-    Route::get('/add-product', [ProductController::class, 'add_product'])->name('add-product');
-    Route::post('/add-product-post', [ProductController::class, 'add_product_post'])->name('add-product-post');
+    Route::get('/add-product/{id?}', [ProductController::class, 'add_product'])->name('add-product');
+    Route::post('/add-product-post/{id?}', [ProductController::class, 'add_product_post'])->name('add-product-post');
     Route::post('/delete-product-post/{id}', [ProductController::class, 'delete_product_post'])->name('delete-product-post');
     Route::post('/product-search', [ProductController::class, 'product_search'])->name('product-search');
     //Categories

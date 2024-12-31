@@ -1,18 +1,20 @@
 @extends('admin.layouts.app')
 @section('content')
-<form class="font-ALSHaussRegular" action="{{ route('add-product-post') }}" method="POST" enctype="multipart/form-data">
+<form class="font-ALSHaussRegular" action="{{ route('add-product-post', $product->id ?? null) }}" method="POST"
+    enctype="multipart/form-data">
     @csrf
-    <x-primary-text text="Добавит новый товар" />
+    <x-primary-text text="{{ $product ? 'Изменить продукт':'Добавит новый товар' }}" />
     <div class="grid gap-4 md:grid-cols-4">
         <div class="grid col-span-4 gap-4 mt-4 lg:col-span-3 lg:grid-cols-2">
-            <x-default-input placeholder="Название товара" value="{{ old('name') }}" type="text" name="name"
-                class="col-span-full" />
+            <x-default-input placeholder="Название товара" value="{{ $product ? $product->name : old('name') }}"
+                type="text" name="name" required="on" class="col-span-full" />
 
             <div class="relative">
                 <select name="category"
                     class="peer p-4 pe-9 block w-full border-gray-200 rounded-lg text-lg focus:border-green-20 focus:ring-green-20 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
                     @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}" {{ $product && $product->category_id == $category->id ?
+                        'selected' : '' }}>{{ $category->name }}</option>
                     @endforeach
                 </select>
                 <label
@@ -24,7 +26,9 @@
                 <select name="brand"
                     class="peer p-4 pe-9 block w-full border-gray-200 rounded-lg text-lg focus:border-green-20 focus:ring-green-20 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
                     @foreach ($brands as $brand)
-                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                    <option value="{{ $brand->id }}" {{ $product && $product->brand_id == $brand->id
+                        ?'selected':''
+                        }}>{{ $brand->name }}</option>
                     @endforeach
                 </select>
                 <label
@@ -37,7 +41,9 @@
                 <select name="supplier"
                     class="peer p-4 pe-9 block w-full border-gray-200 rounded-lg text-lg focus:border-green-20 focus:ring-green-20 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
                     @foreach ($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}">{{ $supplier->company_name }}</option>
+                    <option value="{{ $supplier->id }}" {{ $product && $product->supplier == $supplier->id
+                        ?'selected':''
+                        }}>{{ $supplier->company_name }}</option>
                     @endforeach
                 </select>
                 <label
@@ -50,7 +56,9 @@
                 <select name="unit"
                     class="peer p-4 pe-9 block w-full border-gray-200 rounded-lg text-lg focus:border-green-20 focus:ring-green-20 disabled:opacity-50 disabled:pointer-events-none focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2">
                     @foreach ($units as $units)
-                    <option value="{{ $units->id }}">{{ $units->name }}</option>
+                    <option value="{{ $units->id }}" {{ $product && $product->unit_id == $units->id
+                        ?'selected':''
+                        }}>{{ $units->name }}</option>
                     @endforeach
                 </select>
                 <label
@@ -58,11 +66,14 @@
                     {{ __('Единица измерения') }}
                 </label>
             </div>
-            <x-default-input placeholder="Штрихкод" value="{{ old('sku') }}" type="text" name="sku" />
-            <x-default-input placeholder="Количество" value="{{ old('quantity') }}" type="number" name="quantity" />
-            <x-default-input placeholder="Цена покупка" value="{{ old('buy_price') }}" type="number" name="buy_price" />
-            <x-default-input placeholder="Цена продажа" value="{{ old('sell_price') }}" type="number"
-                name="sell_price" />
+            <x-default-input required="on" placeholder="Штрихкод" value="{{ $product ? $product->sku : old('sku') }}"
+                type="text" name="sku" />
+            <x-default-input required="on" placeholder="Количество"
+                value="{{ $product ? $product->quantity : old('quantity') }}" type="number" name="quantity" />
+            <x-default-input placeholder="Цена покупка" value="{{ $product ? $product->buy_price : old('buy_price') }}"
+                type="number" name="buy_price" />
+            <x-default-input required="on" placeholder="Цена продажа"
+                value="{{ $product ? $product->sell_price : old('sell_price') }}" type="number" name="sell_price" />
 
         </div>
         <label for="photo"
@@ -78,12 +89,14 @@
                     <path d="M16 5l3 3" />
                 </svg>
             </div>
-            <img src="{{ asset('assets/images/noimage.webp') }}" alt="No image" class="object-cover w-full h-full">
+            <img src="{{ $product && $product->image ? asset('storage/'.$product->image) :asset('assets/images/noimage.webp') }}"
+                alt="No image" class="object-cover w-full h-full">
             <input type="file" name="photo" id="photo" class="sr-only">
         </label>
     </div>
     <div class="mt-4 col-span-full">
-        <x-default-button type="submit" text="Добавить" icon="{{ asset('assets/icons/plus.svg') }}" />
+        <x-default-button type="submit" text="{{ $product ? 'Изменить':'Добавить' }}"
+            icon="{{ asset('assets/icons/plus.svg') }}" />
     </div>
 
 </form>
