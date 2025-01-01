@@ -1,4 +1,4 @@
-<div class="absolute">
+<div>
     @if($modal)
     <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-green-20/60">
         <div class="relative p-4 bg-white w-96 rounded-3xl">
