@@ -14,12 +14,10 @@
     @livewire('cart')
     {{-- End Cart --}}
     {{-- Start OrderPlace --}}
-    <div class="absolute top-0 left-0 w-screen h-screen">
-        @livewire('order-place')
-        @livewire('return-product')
-        @livewire('chanes')
-        @livewire('pay-debt')
-    </div>
+    @livewire('order-place')
+    @livewire('return-product')
+    @livewire('chanes')
+    @livewire('pay-debt')
     {{-- End OrderPlace --}}
 </div>
 @endsection
