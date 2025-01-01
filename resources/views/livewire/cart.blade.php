@@ -1,4 +1,4 @@
-<div class="w-[600px] bg-green-20 rounded-3xl p-2 flex flex-col gap-2 whitespace-nowrap">
+<div class="w-[300px] lg:w-[400px] h-full bg-green-20 rounded-3xl p-2 flex flex-col gap-2 whitespace-nowrap">
     <div class="flex bg-white p-1 rounded-2xl justify-between items-center">
         <p class="text-lg text-gray-40  font-ALSHaussBold ml-1">Заказ №000{{ $order_no }}</p>
         <div class="flex gap-1">

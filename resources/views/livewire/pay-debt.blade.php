@@ -1,7 +1,7 @@
 <div>
     @if($modal)
     <div class="absolute top-0 left-0 w-screen h-screen bg-green-20/60 flex justify-center items-center">
-        <div class="bg-white w-96 rounded-3xl p-4 relative">
+        <div class="bg-white lg:w-96 rounded-3xl p-4 relative">
             <p class="mb-4 text-xl leading-5 whitespace-normal font-ALSHaussBold">Окно погашения долгов
             </p>
             <div class="border-t-2">

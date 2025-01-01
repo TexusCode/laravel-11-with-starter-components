@@ -46,7 +46,7 @@
             </form>
         </div>
     </div>
-    <div class="w-full rounded-2xl flex gap-2">
+    <div class="w-full rounded-2xl flex flex-col lg:flex-row gap-2">
         <select wire:model.live="category"
             class="rounded-2xl outline-none border-2 border-green-20 w-full focus:border-green-20 focus:ring-green-20 duration-300">
             <option value="" selected disabled>Категории</option>
@@ -90,7 +90,7 @@
                         <p class="text-sm leading-none max-w-56 line-clamp-1 whitespace-normal">{{$product->name}}</p>
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{ $product->sell_price }}c</p>
                     </div>
-                    <div class="flex flex-col gap-1">
+                    <div class="hidden lg:flex flex-col gap-1">
                         <p class="text-sm leading-none">Артикул:</p>
                         <p class="text-sm leading-none text-green-20 font-ALSHaussBold">{{
                             $product->sku }}</p>
