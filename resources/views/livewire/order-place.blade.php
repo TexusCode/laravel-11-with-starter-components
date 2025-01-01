@@ -1,7 +1,7 @@
 <div>
     @if($modal)
     <div class="absolute top-0 left-0 w-screen h-screen bg-green-20/60 flex justify-center items-center">
-        <div class="relative p-4 bg-white lg:w-96 rounded-3xl">
+        <div class="relative p-4 bg-white w-80 lg:w-96 rounded-3xl">
             <p class="mb-4 text-xl leading-5 whitespace-normal font-ALSHaussBold">Оплата и детали заказа
             </p>
             <div class="border-t-2">
