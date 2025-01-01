@@ -32,6 +32,10 @@ class Cart extends Component
     {
         $this->updatedCart();
     }
+    public function returnPro()
+    {
+        $this->dispatch('returnModalUdated');
+    }
     public function updatedCart()
     {
         $this->order_no = Order::max('id') + 1 ?? 1;

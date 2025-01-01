@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('subtotal');
             $table->string('returns');
             $table->string('expenditures');
-            $table->string('debts');
+            $table->string('debts_pay');
+            $table->string('debts_sell');
             $table->string('total');
             $table->timestamps();
         });

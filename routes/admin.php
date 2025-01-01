@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpliyoneController;
 use App\Http\Controllers\ExprnditureController;
@@ -56,4 +57,6 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::post('/status-empliyone/{id}', [EmpliyoneController::class, 'status_empliyone'])->name('status-empliyone');
     //Orders
     Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
+    //Customers
+    Route::get('/customers',[CustomerController::class,'customers'])->name('customers');
 });

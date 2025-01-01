@@ -36,36 +36,34 @@ class OrderPlace extends Component
     public function updatedpaymentType()
     {
         $this->paymentType = $this->paymentType;
-        if($this->paymentType == 'В долг')
-        {
+        if ($this->paymentType == 'В долг') {
             $this->debt = true;
-        }else{
+        } else {
             $this->debt = false;
-
         }
         $this->updatedOrderPlace($id = null);
     }
     public function order_place()
     {
-        if($this->paymentType == 'В долг')
-        {
-            if($this->customerName && $this->customerPhone)
-            {
+        if ($this->paymentType == 'В долг') {
+            if ($this->customerName && $this->customerPhone) {
                 $customer = Customer::updateOrCreate(
                     ['phone' => $this->customerPhone], // Attributes to search for
                     [
                         'name' => $this->customerName,
                         'phone' => $this->customerPhone,
-                        'location' => 'empty'
                     ]
                 );
+                $customer->debts += $this->total;
+                $customer->save();
                 Debt::create(
-                [
-                    'customer_id'=>$customer->id,
-                    'price'=>$this->total
-                ]
-                    );
-            }else{
+                    [
+                        'customer_id' => $customer->id,
+                        'price' => $this->total,
+                        'type' => 'Получено'
+                    ]
+                );
+            } else {
                 return;
             }
         }

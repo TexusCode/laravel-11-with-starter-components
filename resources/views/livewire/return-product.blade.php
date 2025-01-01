@@ -1,0 +1,69 @@
+<div>
+    @if($modal)
+    <div class="absolute top-0 left-0 w-screen h-screen bg-green-20/60 flex justify-center items-center">
+        <div class="bg-white w-96 rounded-3xl p-4 relative">
+            <p class="mb-4 text-xl leading-5 whitespace-normal font-ALSHaussBold">Возврать товар
+            </p>
+            <button type="button" wire:click="closemodal"
+                class="text-red-500 hover:text-red-400 active:text-red-600 absolute top-3 right-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M18 6l-12 12" />
+                    <path d="M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="border-t-2 mb-3">
+            </div>
+            <div>
+                <span class="mb-1 text-lg">Код товара:</span>
+                <input type="text" wire:model.live="product" placeholder="546465546"
+                    class="w-full duration-300 border-2 outline-none rounded-2xl border-green-20 focus:border-green-20 focus:ring-green-20">
+            </div>
+            @if($active)
+
+            <div class="mt-2">
+                <span class="mb-1 text-lg">Количество:</span>
+                <input type="text" wire:model.live="quantity"
+                    class="w-full duration-300 border-2 outline-none rounded-2xl border-green-20 focus:border-green-20 focus:ring-green-20">
+            </div>
+            <div class="mt-2">
+                <span class="mb-1 text-lg">Полученная сумма:</span>
+                <input type="text" wire:model.live="price"
+                    class="w-full duration-300 border-2 outline-none rounded-2xl border-green-20 focus:border-green-20 focus:ring-green-20">
+            </div>
+            <div class="mt-2">
+                <span class="mb-1 text-lg">Примечания к заказу:</span>
+                <textarea cols="30" rows="3" wire:model.live="note"
+                    class="w-full duration-300 border-2 outline-none rounded-2xl border-green-20 focus:border-green-20 focus:ring-green-20"
+                    placeholder="Заметка..."></textarea>
+            </div>
+            @endif
+            <button type="button" wire:click="return_product"
+                class="flex items-center justify-center w-full gap-2 py-2 mt-4 text-xl text-white bg-green-20 hover:bg-green-10 active:bg-green-30 font-ALSHaussBold rounded-xl">
+                <span>Возврат товар</span>
+                <svg wire:loading class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-loader">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 6l0 -3" />
+                    <path d="M16.25 7.75l2.15 -2.15" />
+                    <path d="M18 12l3 0" />
+                    <path d="M16.25 16.25l2.15 2.15" />
+                    <path d="M12 18l0 3" />
+                    <path d="M7.75 16.25l-2.15 2.15" />
+                    <path d="M6 12l-3 0" />
+                    <path d="M7.75 7.75l-2.15 -2.15" />
+                </svg>
+            </button>
+            @if($message)
+            <div class="flex items-start w-full gap-2 p-3 mt-4 bg-red-500/20 rounded-xl">
+                <img src="{{ asset('assets/icons/alert-square-rounded.svg') }}" alt="">
+                <p class="text-base text-red-500 font-ALSHaussBold">{{ $message }}</p>
+            </div>
+            @endif
+        </div>
+    </div>
+    @endif
+</div>

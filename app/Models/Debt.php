@@ -9,6 +9,7 @@ class Debt extends Model
     protected $fillable = [
         'customer_id',
         'price',
+        'type',
     ];
 
     public function customer()

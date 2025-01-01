@@ -9,6 +9,11 @@ class Customer extends Model
     protected $fillable = [
         'name',
         'phone',
-        'location',
+        'debts',
     ];
+
+    public function debt()
+    {
+        return $this->hasMany(Debt::class);
+    }
 }
