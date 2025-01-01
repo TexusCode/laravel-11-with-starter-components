@@ -14,7 +14,7 @@
     @livewire('cart')
     {{-- End Cart --}}
     {{-- Start OrderPlace --}}
-    <div class="absolute">
+    <div class="absolute top-0 left-0 w-screen h-screen">
         @livewire('order-place')
         @livewire('return-product')
         @livewire('chanes')
