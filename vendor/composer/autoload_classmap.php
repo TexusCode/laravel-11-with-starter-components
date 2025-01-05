@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\Api\\PosController' => $baseDir . '/app/Http/Controllers/Api/PosController.php',
     'App\\Http\\Controllers\\ApplicationController' => $baseDir . '/app/Http/Controllers/ApplicationController.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\BrandController' => $baseDir . '/app/Http/Controllers/BrandController.php',
@@ -27,10 +28,15 @@ return array(
     'App\\Http\\Middleware\\Admin' => $baseDir . '/app/Http/Middleware/Admin.php',
     'App\\Http\\Middleware\\CheckPin' => $baseDir . '/app/Http/Middleware/CheckPin.php',
     'App\\Http\\Middleware\\Pos' => $baseDir . '/app/Http/Middleware/Pos.php',
+    'App\\Livewire\\Application' => $baseDir . '/app/Livewire/Application.php',
     'App\\Livewire\\Calculator' => $baseDir . '/app/Livewire/Calculator.php',
     'App\\Livewire\\Cart' => $baseDir . '/app/Livewire/Cart.php',
+    'App\\Livewire\\Chanes' => $baseDir . '/app/Livewire/Chanes.php',
+    'App\\Livewire\\Menu' => $baseDir . '/app/Livewire/Menu.php',
     'App\\Livewire\\OrderPlace' => $baseDir . '/app/Livewire/OrderPlace.php',
+    'App\\Livewire\\PayDebt' => $baseDir . '/app/Livewire/PayDebt.php',
     'App\\Livewire\\Products' => $baseDir . '/app/Livewire/Products.php',
+    'App\\Livewire\\ReturnProduct' => $baseDir . '/app/Livewire/ReturnProduct.php',
     'App\\Livewire\\Test' => $baseDir . '/app/Livewire/Test.php',
     'App\\Models\\Application' => $baseDir . '/app/Models/Application.php',
     'App\\Models\\Brand' => $baseDir . '/app/Models/Brand.php',
@@ -43,6 +49,7 @@ return array(
     'App\\Models\\Exprnditure' => $baseDir . '/app/Models/Exprnditure.php',
     'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
+    'App\\Models\\ReturnProduct' => $baseDir . '/app/Models/ReturnProduct.php',
     'App\\Models\\Revision' => $baseDir . '/app/Models/Revision.php',
     'App\\Models\\SubCart' => $baseDir . '/app/Models/SubCart.php',
     'App\\Models\\SubOrder' => $baseDir . '/app/Models/SubOrder.php',

@@ -599,6 +599,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\Api\\PosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PosController.php',
         'App\\Http\\Controllers\\ApplicationController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApplicationController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\BrandController' => __DIR__ . '/../..' . '/app/Http/Controllers/BrandController.php',
@@ -620,10 +621,15 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'App\\Http\\Middleware\\Admin' => __DIR__ . '/../..' . '/app/Http/Middleware/Admin.php',
         'App\\Http\\Middleware\\CheckPin' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckPin.php',
         'App\\Http\\Middleware\\Pos' => __DIR__ . '/../..' . '/app/Http/Middleware/Pos.php',
+        'App\\Livewire\\Application' => __DIR__ . '/../..' . '/app/Livewire/Application.php',
         'App\\Livewire\\Calculator' => __DIR__ . '/../..' . '/app/Livewire/Calculator.php',
         'App\\Livewire\\Cart' => __DIR__ . '/../..' . '/app/Livewire/Cart.php',
+        'App\\Livewire\\Chanes' => __DIR__ . '/../..' . '/app/Livewire/Chanes.php',
+        'App\\Livewire\\Menu' => __DIR__ . '/../..' . '/app/Livewire/Menu.php',
         'App\\Livewire\\OrderPlace' => __DIR__ . '/../..' . '/app/Livewire/OrderPlace.php',
+        'App\\Livewire\\PayDebt' => __DIR__ . '/../..' . '/app/Livewire/PayDebt.php',
         'App\\Livewire\\Products' => __DIR__ . '/../..' . '/app/Livewire/Products.php',
+        'App\\Livewire\\ReturnProduct' => __DIR__ . '/../..' . '/app/Livewire/ReturnProduct.php',
         'App\\Livewire\\Test' => __DIR__ . '/../..' . '/app/Livewire/Test.php',
         'App\\Models\\Application' => __DIR__ . '/../..' . '/app/Models/Application.php',
         'App\\Models\\Brand' => __DIR__ . '/../..' . '/app/Models/Brand.php',
@@ -636,6 +642,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'App\\Models\\Exprnditure' => __DIR__ . '/../..' . '/app/Models/Exprnditure.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\ReturnProduct' => __DIR__ . '/../..' . '/app/Models/ReturnProduct.php',
         'App\\Models\\Revision' => __DIR__ . '/../..' . '/app/Models/Revision.php',
         'App\\Models\\SubCart' => __DIR__ . '/../..' . '/app/Models/SubCart.php',
         'App\\Models\\SubOrder' => __DIR__ . '/../..' . '/app/Models/SubOrder.php',
