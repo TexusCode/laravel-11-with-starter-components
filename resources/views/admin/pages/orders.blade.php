@@ -108,8 +108,12 @@
                             <div class="py-3 ps-6 lg:ps-3 xl:ps-0 pe-6">
                                 <div class="flex items-center gap-x-3">
                                     <div class="grow">
-                                        <span class="block text-sm font-semibold text-gray-800">000{{ $order->id
-                                            }}</span>
+                                        <span class="block text-sm font-semibold text-gray-800">000{{ $order->id}}
+                                        @foreach($order->suborders as $suborder)
+                                        <br>
+                                        Имя продукт: {{ $suborder->product->name }} - Цена: {{ $suborder->price }}с - Кол: {{ $suborder->quantity }}шт
+                                        @endforeach
+                                            </span>
                                     </div>
                                 </div>
                             </div>
