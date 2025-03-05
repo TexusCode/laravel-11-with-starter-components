@@ -13,8 +13,7 @@ class AuthController extends Controller
     {
         $user = User::where('phone', '005335051')->first();
 
-        if(!$user)
-        {
+        if (!$user) {
             $user = new User();
             $user->name = 'Shod';
             $user->phone = '005335051';
@@ -53,6 +52,7 @@ class AuthController extends Controller
         return match (Auth::user()->role) {
             'pos' => redirect()->route('pos')->with('success', 'Добро пожаловать, кассир!'),
             'admin' => redirect()->route('dashboard')->with('success', 'Добро пожаловать, администратор!'),
+            'revisor' => redirect()->route('revisor_dash')->with('success', 'Добро пожаловать, Ревизер!'),
         };
     }
 
