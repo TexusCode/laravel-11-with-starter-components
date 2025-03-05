@@ -9,6 +9,7 @@ use App\Http\Controllers\EmpliyoneController;
 use App\Http\Controllers\ExprnditureController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Revisor\RevisorController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -63,4 +64,6 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/customers', [CustomerController::class, 'customers'])->name('customers');
     //Changes
     Route::get('/changes', [ChangeController::class, 'changes'])->name('changes');
+    Route::get('/revision', [RevisorController::class, 'revision'])->name('revision');
+    Route::post('/revision_post', [RevisorController::class, 'revision_post'])->name('revision_post');
 });

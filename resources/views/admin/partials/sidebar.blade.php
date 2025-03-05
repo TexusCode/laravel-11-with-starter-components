@@ -254,7 +254,7 @@
         </li>
         <li>
             <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-base text-white rounded-lg hover:bg-white/10 focus:outline-none focus:bg-white/10"
-                href="#">
+                href="{{ route('revision') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-shield-lock">
