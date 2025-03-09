@@ -32,6 +32,8 @@ class BuysProduct extends Component
             $this->product->save();
             $this->message = 'Количество товара успешно обновлено';
             $this->product = null;
+            $this->quantity = null;
+            $this->barcode = null;
         } else {
             $this->message = 'Не известная ошибка повторите еше раз!';
         }
