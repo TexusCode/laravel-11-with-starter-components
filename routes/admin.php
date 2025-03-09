@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BuysController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChangeController;
@@ -66,4 +67,6 @@ Route::middleware(['admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/changes', [ChangeController::class, 'changes'])->name('changes');
     Route::get('/revision', [RevisorController::class, 'revision'])->name('revision');
     Route::post('/revision_post', [RevisorController::class, 'revision_post'])->name('revision_post');
+    //buys
+    Route::get('buys-get', [BuysController::class, 'buys_get'])->name('buys-get');
 });
