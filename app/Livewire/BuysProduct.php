@@ -21,6 +21,7 @@ class BuysProduct extends Component
         if ($product) {
             $this->product = $product;
             $this->message = null;
+            $this->barcode = null;
         } else {
             $this->message = 'Товар не найден сначало добавте его в разделе товары!';
         }
