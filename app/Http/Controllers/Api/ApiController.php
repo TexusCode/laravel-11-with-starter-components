@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Azs\SmsController;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Brand;
@@ -23,6 +24,7 @@ use App\Models\Partner;
 use App\Models\Product;
 use App\Models\ReturnProduct;
 use App\Models\Revision;
+use App\Models\Sms;
 use App\Models\SubCart;
 use App\Models\SubOrder;
 use App\Models\Supplier;
@@ -46,6 +48,7 @@ class ApiController extends Controller
         $fuelbag = FuelBag::all();
         $fueldayprice = FuelDayPrice::all();
         $parner = Partner::all();
+        $sms = Sms::all();
 
         // return response()->json([
         //     'transaction' => $transaction,
@@ -67,6 +70,7 @@ class ApiController extends Controller
             'fuelbag' => $fuelbag,
             'fueldayprice' => $fueldayprice,
             'parner' => $parner,
+            'sms' => $sms,
         ]);
 
         if ($response->successful()) {
@@ -92,6 +96,7 @@ class ApiController extends Controller
                 FuelBag::class => 'fuelbag',
                 FuelDayPrice::class => 'fueldayprice',
                 Partner::class => 'parner',
+                Sms::class => 'sms',
             ];
 
             // Проходим по всем моделям и синхронизируем данные
@@ -104,6 +109,14 @@ class ApiController extends Controller
                             $item // Данные для обновления или создания
                         );
                     }
+                }
+            }
+            $sms = Sms::where('status', 'notsend')->get();
+            if ($sms) {
+                foreach ($sms as $sms) {
+                    $smsController = new SmsController();
+                    $smsResponse = $smsController->sendSms($sms->phone, $sms->text);
+                    // Возвращаем представление с сообщением об успешном снятии
                 }
             }
 

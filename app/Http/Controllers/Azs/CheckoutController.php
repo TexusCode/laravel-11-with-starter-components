@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Card;
 use App\Models\FuelDayPrice;
 use App\Models\Partner;
+use App\Models\Sms;
 use App\Models\Tranization;
 use Illuminate\Http\Request;
 
@@ -95,10 +96,14 @@ class CheckoutController extends Controller
                 $phone2 = $part->phone;
                 $message2 = "На ваш бонусный баланс зачислено $bonuspar сомони за счет вашего партнера $parname. Остаток: $ostatok2 сомони.";
 
-                // $smsController = new SmsController();
-                // $smsResponse = $smsController->sendSms($phone, $message);
-                // $smsController = new SmsController();
-                // $smsResponse = $smsController->sendSms($phone2, $message2);
+                Sms::create([
+                    'phone' => $phone,
+                    'text' => $message,
+                ]);
+                Sms::create([
+                    'phone' => $phone2,
+                    'text' => $message2,
+                ]);
 
                 return view('azs.pages.card-details', [
                     'qrcode' => $qrcode,
@@ -116,8 +121,10 @@ class CheckoutController extends Controller
             $phone = $qrcode->phone;
             $message = "На ваш бонусный баланс зачислено $bonussumm сомони. Остаток: $ostatok сомони.";
 
-            // $smsController = new SmsController();
-            // $smsResponse = $smsController->sendSms($phone, $message);
+            Sms::create([
+                'phone' => $phone,
+                'text' => $message,
+            ]);
             return view('azs.pages.card-details', [
                 'qrcode' => $qrcode,
                 'fuelprice' => $fuelprice,
@@ -158,9 +165,10 @@ class CheckoutController extends Controller
             $phone = $qrcode->phone;
             $message = "Вы сняли с вашего бонусного баланса $cashoff сомони. Остаток: $qrcode->balance сомони.";
 
-            // $smsController = new SmsController();
-            // $smsResponse = $smsController->sendSms($phone, $message);
-            // Возвращаем представление с сообщением об успешном снятии
+            Sms::create([
+                'phone' => $phone,
+                'text' => $message,
+            ]);
             return view('azs.pages.card-details', [
                 'qrcode' => $qrcode,
                 'fuelprice' => $fuelprice,
