@@ -98,20 +98,33 @@ class ApiController extends Controller
                 Sms::class => 'sms',
             ];
 
+
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
                         // Отключаем защиту полей
                         $model::unguard();
 
-                        // Конвертируем даты, если они есть
-                        if (isset($item['created_at'])) {
-                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
-                        }
-                        if (isset($item['updated_at'])) {
-                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        // Проверяем и конвертируем дату, если она есть
+                        if (!empty($item['created_at'])) {
+                            $timestamp = strtotime($item['created_at']);
+                            if ($timestamp !== false) {
+                                $item['created_at'] = Carbom::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
+                            } else {
+                                unset($item['created_at']); // Если дата некорректна, убираем её
+                            }
                         }
 
+                        if (!empty($item['updated_at'])) {
+                            $timestamp = strtotime($item['updated_at']);
+                            if ($timestamp !== false) {
+                                $item['updated_at'] = Carbom::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
+                            } else {
+                                unset($item['updated_at']);
+                            }
+                        }
+
+                        // Выполняем обновление или создание записи
                         $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
@@ -124,6 +137,7 @@ class ApiController extends Controller
                     }
                 }
             }
+
             $sms = Sms::where('status', 'notsend')->get();
             if ($sms) {
                 foreach ($sms as $sms) {
