@@ -8,4 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/user', [PosController::class, 'user']);
 Route::post('/azs-get-data', [ApiController::class, 'azsGetData']);
-Route::post('/azs-send-data', [ApiController::class, 'azsSendData'])->name('azsSendData');
+Route::post('/azs-send-data', [ApiController::class, 'azsSendData'])->name('posSendData');
+Route::post('/pos-get-data', [ApiController::class, 'posGetData']);
+Route::post('/pos-send-data', [ApiController::class, 'posSendData'])->name('posSendData');
