@@ -105,23 +105,21 @@ class ApiController extends Controller
                         // Отключаем защиту полей
                         $model::unguard();
 
-                        // Проверяем и конвертируем дату, если она есть
-                        if (!empty($item['created_at'])) {
-                            $timestamp = strtotime($item['created_at']);
-                            if ($timestamp !== false) {
-                                $item['created_at'] = Carbom::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
-                            } else {
-                                unset($item['created_at']); // Если дата некорректна, убираем её
-                            }
+                        // Получаем предыдущую запись, если существует
+                        $previousRecord = $model::find($item['id']);
+
+                        // Обрабатываем created_at
+                        if (!empty($item['created_at']) && strtotime($item['created_at']) !== false) {
+                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
+                        } else {
+                            $item['created_at'] = $previousRecord ? $previousRecord->created_at : now();
                         }
 
-                        if (!empty($item['updated_at'])) {
-                            $timestamp = strtotime($item['updated_at']);
-                            if ($timestamp !== false) {
-                                $item['updated_at'] = Carbom::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
-                            } else {
-                                unset($item['updated_at']);
-                            }
+                        // Обрабатываем updated_at
+                        if (!empty($item['updated_at']) && strtotime($item['updated_at']) !== false) {
+                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        } else {
+                            $item['updated_at'] = $previousRecord ? $previousRecord->updated_at : now();
                         }
 
                         // Выполняем обновление или создание записи
