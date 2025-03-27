@@ -33,7 +33,6 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
-use Illuminate\Support\Carbon as Carbom;
 class ApiController extends Controller
 {
     public function azsSendData(Request $request)
@@ -98,48 +97,32 @@ class ApiController extends Controller
                 Sms::class => 'sms',
             ];
 
-
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
                         // Отключаем защиту полей
                         $model::unguard();
 
-                        // Получаем предыдущую запись, если она есть
-                        $previousRecord = $model::where('id', $item['id'])->first();
-
-                        // Функция для проверки и форматирования даты
-                        $formatDate = function ($date, $fallback) {
-                            try {
-                                return Carbom::parse($date)->format('Y-m-d H:i:s');
-                            } catch (\Exception $e) {
-                                return $fallback;
-                            }
-                        };
-
-                        // Приводим даты в корректный формат или берём из предыдущей записи
-                        $item['created_at'] = $formatDate($item['created_at'] ?? null, $previousRecord->created_at ?? now()->format('Y-m-d H:i:s'));
-                        $item['updated_at'] = $formatDate($item['updated_at'] ?? null, $previousRecord->updated_at ?? now()->format('Y-m-d H:i:s'));
-
-                        try {
-                            // Выполняем обновление или создание записи
-                            $model::updateOrCreate(
-                                ['id' => $item['id']], // Условие для обновления (по id)
-                                $item // Данные для обновления или создания
-                            );
-                        } catch (\Exception $e) {
-                            return response()->json([
-                                'error' => 'Ошибка при сохранении данных: ' . $e->getMessage(),
-                                'data' => $item
-                            ], 500);
+                        // Конвертируем даты, если они есть
+                        if (isset($item['created_at'])) {
+                            $item['created_at'] = Carbon::parse($item['created_at'])->format('Y-m-d H:i:s');
                         }
+                        if (isset($item['updated_at'])) {
+                            $item['updated_at'] = Carbon::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        }
+
+                        $record = $model::updateOrCreate(
+                            ['id' => $item['id']], // Условие для обновления (по id)
+                            $item // Данные для обновления или создания
+                        );
+
+                        $record->save();
 
                         // Включаем защиту полей обратно
                         $model::reguard();
                     }
                 }
             }
-
             $sms = Sms::where('status', 'notsend')->get();
             if ($sms) {
                 foreach ($sms as $sms) {
@@ -244,25 +227,25 @@ class ApiController extends Controller
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Отключаем защиту полей
+                        // Отключаем автоматическое обновление timestamps
                         $model::unguard();
-
-                        // Конвертируем даты, если они есть
-                        if (isset($item['created_at'])) {
-                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
-                        }
-                        if (isset($item['updated_at'])) {
-                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
-                        }
 
                         $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
 
+                        // Вручную устанавливаем timestamps, если они есть в переданных данных
+                        if (isset($item['created_at'])) {
+                            $record->created_at = $item['created_at'];
+                        }
+                        if (isset($item['updated_at'])) {
+                            $record->updated_at = $item['updated_at'];
+                        }
+
                         $record->save();
 
-                        // Включаем защиту полей обратно
+                        // Включаем обратно защиту атрибутов
                         $model::reguard();
                     }
                 }
