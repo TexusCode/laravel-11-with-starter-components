@@ -105,22 +105,21 @@ class ApiController extends Controller
                         // Отключаем защиту полей
                         $model::unguard();
 
-                        // Получаем предыдущую запись
+                        // Получаем предыдущую запись, если она есть
                         $previousRecord = $model::where('id', $item['id'])->first();
 
-                        // Проверяем и форматируем created_at
-                        if (!empty($item['created_at']) && strtotime($item['created_at']) !== false) {
-                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
-                        } else {
-                            $item['created_at'] = $previousRecord ? $previousRecord->created_at : now()->format('Y-m-d H:i:s');
-                        }
+                        // Функция для проверки и форматирования даты
+                        $formatDate = function ($date, $fallback) {
+                            try {
+                                return Carbom::parse($date)->format('Y-m-d H:i:s');
+                            } catch (\Exception $e) {
+                                return $fallback;
+                            }
+                        };
 
-                        // Проверяем и форматируем updated_at
-                        if (!empty($item['updated_at']) && strtotime($item['updated_at']) !== false) {
-                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
-                        } else {
-                            $item['updated_at'] = $previousRecord ? $previousRecord->updated_at : now()->format('Y-m-d H:i:s');
-                        }
+                        // Приводим даты в корректный формат или берём из предыдущей записи
+                        $item['created_at'] = $formatDate($item['created_at'] ?? null, $previousRecord->created_at ?? now()->format('Y-m-d H:i:s'));
+                        $item['updated_at'] = $formatDate($item['updated_at'] ?? null, $previousRecord->updated_at ?? now()->format('Y-m-d H:i:s'));
 
                         try {
                             // Выполняем обновление или создание записи
