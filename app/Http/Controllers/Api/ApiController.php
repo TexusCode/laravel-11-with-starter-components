@@ -49,16 +49,6 @@ class ApiController extends Controller
         $fueldayprice = FuelDayPrice::where('created_at', '>=', $tenDaysAgo)->get();
         $sms = Sms::where('created_at', '>=', $tenDaysAgo)->get();
 
-        // return response()->json([
-        //     'transaction' => $transaction,
-        //     'card' => $card,
-        //     'cardregister' => $cardregister,
-        //     'close' => $close,
-        //     'expenses' => $expenses,
-        //     'fuelbag' => $fuelbag,
-        //     'fueldayprice' => $fueldayprice,
-        // ]);
-
         $response = Http::timeout(120)->post('https://topcars.tj/api/azs-get-data', [
             'transaction' => $transaction,
             'card' => $card,
@@ -218,25 +208,25 @@ class ApiController extends Controller
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Отключаем автоматическое обновление timestamps
+                        // Отключаем защиту полей
                         $model::unguard();
+
+                        // Конвертируем даты, если они есть
+                        if (isset($item['created_at'])) {
+                            $item['created_at'] = Carbon::parse($item['created_at'])->format('Y-m-d H:i:s');
+                        }
+                        if (isset($item['updated_at'])) {
+                            $item['updated_at'] = Carbon::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        }
 
                         $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
 
-                        // Вручную устанавливаем timestamps, если они есть в переданных данных
-                        if (isset($item['created_at'])) {
-                            $record->created_at = $item['created_at'];
-                        }
-                        if (isset($item['updated_at'])) {
-                            $record->updated_at = $item['updated_at'];
-                        }
-
                         $record->save();
 
-                        // Включаем обратно защиту атрибутов
+                        // Включаем защиту полей обратно
                         $model::reguard();
                     }
                 }
