@@ -72,6 +72,7 @@ class ApiController extends Controller
         ]);
 
         if ($response->successful()) {
+            Sms::truncate();
             echo "Данные отправлены успешно!";
         } else {
             echo "Ошибка: " . $response->body();
@@ -100,11 +101,26 @@ class ApiController extends Controller
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Используем updateOrCreate для обновления или создания записей
-                        $model::updateOrCreate(
+                        // Отключаем автоматическое обновление timestamps
+                        $model::unguard();
+
+                        $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
+
+                        // Вручную устанавливаем timestamps, если они есть в переданных данных
+                        if (isset($item['created_at'])) {
+                            $record->created_at = $item['created_at'];
+                        }
+                        if (isset($item['updated_at'])) {
+                            $record->updated_at = $item['updated_at'];
+                        }
+
+                        $record->save();
+
+                        // Включаем обратно защиту атрибутов
+                        $model::reguard();
                     }
                 }
             }
@@ -115,7 +131,6 @@ class ApiController extends Controller
                     $smsResponse = $smsController->sendSms($sms->phone, $sms->text);
                     $sms->status = 'send';
                     $sms->save();
-                    // Возвращаем представление с сообщением об успешном снятии
                 }
             }
 
@@ -209,15 +224,29 @@ class ApiController extends Controller
                 Unit::class => 'unit',
             ];
 
-            // Проходим по всем моделям и синхронизируем данные
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Используем updateOrCreate для обновления или создания записей
-                        $model::updateOrCreate(
+                        // Отключаем автоматическое обновление timestamps
+                        $model::unguard();
+
+                        $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
+
+                        // Вручную устанавливаем timestamps, если они есть в переданных данных
+                        if (isset($item['created_at'])) {
+                            $record->created_at = $item['created_at'];
+                        }
+                        if (isset($item['updated_at'])) {
+                            $record->updated_at = $item['updated_at'];
+                        }
+
+                        $record->save();
+
+                        // Включаем обратно защиту атрибутов
+                        $model::reguard();
                     }
                 }
             }
