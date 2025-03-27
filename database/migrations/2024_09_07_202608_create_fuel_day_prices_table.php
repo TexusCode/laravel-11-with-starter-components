@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,10 @@ return new class extends Migration
     {
         Schema::create('fuel_day_prices', function (Blueprint $table) {
             $table->id();
-            $table->string('benzin92');
-            $table->string('benzin95');
-            $table->string('gas');
-            $table->string('diesel');
+            $table->string('benzin92')->nullable();
+            $table->string('benzin95')->nullable();
+            $table->string('gas')->nullable();
+            $table->string('diesel')->nullable();
             $table->timestamps();
         });
     }

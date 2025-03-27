@@ -10,7 +10,8 @@ class FuelDayPrice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'benzin',
+        'benzin92',
+        'benzin95',
         'gas',
         'diesel',
     ];

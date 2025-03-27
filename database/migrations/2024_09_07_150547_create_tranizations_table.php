@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,10 @@ return new class extends Migration
     {
         Schema::create('tranizations', function (Blueprint $table) {
             $table->id();
-            $table->string('cardid');
-            $table->string('fueltype');
-            $table->string('operationtype');
-            $table->string('cash');
+            $table->string('cardid')->nullable();
+            $table->string('fueltype')->nullable();
+            $table->string('operationtype')->nullable();
+            $table->string('cash')->nullable();
             $table->timestamps();
         });
     }
