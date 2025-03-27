@@ -47,7 +47,6 @@ class ApiController extends Controller
         $expenses = Expenses::all();
         $fuelbag = FuelBag::all();
         $fueldayprice = FuelDayPrice::all();
-        $parner = Partner::all();
         $sms = Sms::all();
 
         // return response()->json([
@@ -69,7 +68,6 @@ class ApiController extends Controller
             'expenses' => $expenses,
             'fuelbag' => $fuelbag,
             'fueldayprice' => $fueldayprice,
-            'parner' => $parner,
             'sms' => $sms,
         ]);
 
@@ -95,7 +93,6 @@ class ApiController extends Controller
                 Expenses::class => 'expenses',
                 FuelBag::class => 'fuelbag',
                 FuelDayPrice::class => 'fueldayprice',
-                Partner::class => 'parner',
                 Sms::class => 'sms',
             ];
 
