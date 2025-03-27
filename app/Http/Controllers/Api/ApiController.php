@@ -38,16 +38,16 @@ class ApiController extends Controller
     public function azsSendData(Request $request)
     {
 
-        $tenDaysAgo = Carbon::now()->subDays(300); // Получаем дату 10 дней назад
+        $tenDaysAgo = Carbon::now()->subDays(10); // Дата 10 дней назад
 
-        $transaction = Tranization::all();
-        $card = Card::all();
-        $cardregister = CardRegister::all();
-        $close = Close::all();
-        $expenses = Expenses::all();
-        $fuelbag = FuelBag::all();
-        $fueldayprice = FuelDayPrice::all();
-        $sms = Sms::all();
+        $transaction = Tranization::where('created_at', '>=', $tenDaysAgo)->get();
+        $card = Card::where('created_at', '>=', $tenDaysAgo)->get();
+        $cardregister = CardRegister::where('created_at', '>=', $tenDaysAgo)->get();
+        $close = Close::where('created_at', '>=', $tenDaysAgo)->get();
+        $expenses = Expenses::where('created_at', '>=', $tenDaysAgo)->get();
+        $fuelbag = FuelBag::where('created_at', '>=', $tenDaysAgo)->get();
+        $fueldayprice = FuelDayPrice::where('created_at', '>=', $tenDaysAgo)->get();
+        $sms = Sms::where('created_at', '>=', $tenDaysAgo)->get();
 
         // return response()->json([
         //     'transaction' => $transaction,
@@ -57,7 +57,6 @@ class ApiController extends Controller
         //     'expenses' => $expenses,
         //     'fuelbag' => $fuelbag,
         //     'fueldayprice' => $fueldayprice,
-        //     'parner' => $parner,
         // ]);
 
         $response = Http::timeout(120)->post('https://topcars.tj/api/azs-get-data', [
@@ -143,33 +142,25 @@ class ApiController extends Controller
 
     public function posSendData(Request $request)
     {
+        $tenDaysAgo = Carbon::now()->subDays(10);
 
-        $transaction = Tranization::all();
-        $card = Card::all();
-        $cardregister = CardRegister::all();
-        $close = Close::all();
-        $expenses = Expenses::all();
-        $fuelbag = FuelBag::all();
-        $fueldayprice = FuelDayPrice::all();
-        $parner = Partner::all();
-
-        $application = Application::all();
-        $brand = Brand::all();
-        $buy = Buy::all();
-        $cart = Cart::all();
-        $category = Category::all();
-        $change = Change::all();
-        $customer = Customer::all();
-        $debt = Debt::all();
-        $exprnditure = Exprnditure::all();
-        $order = Order::all();
-        $product = Product::all();
-        $returnproduct = ReturnProduct::all();
-        $revision = Revision::all();
-        $subcart = SubCart::all();
-        $suborder = SubOrder::all();
-        $supplier = Supplier::all();
-        $unit = Unit::all();
+        $application = Application::where('created_at', '>=', $tenDaysAgo)->get();
+        $brand = Brand::where('created_at', '>=', $tenDaysAgo)->get();
+        $buy = Buy::where('created_at', '>=', $tenDaysAgo)->get();
+        $cart = Cart::where('created_at', '>=', $tenDaysAgo)->get();
+        $category = Category::where('created_at', '>=', $tenDaysAgo)->get();
+        $change = Change::where('created_at', '>=', $tenDaysAgo)->get();
+        $customer = Customer::where('created_at', '>=', $tenDaysAgo)->get();
+        $debt = Debt::where('created_at', '>=', $tenDaysAgo)->get();
+        $exprnditure = Exprnditure::where('created_at', '>=', $tenDaysAgo)->get();
+        $order = Order::where('created_at', '>=', $tenDaysAgo)->get();
+        $product = Product::where('created_at', '>=', $tenDaysAgo)->get();
+        $returnproduct = ReturnProduct::where('created_at', '>=', $tenDaysAgo)->get();
+        $revision = Revision::where('created_at', '>=', $tenDaysAgo)->get();
+        $subcart = SubCart::where('created_at', '>=', $tenDaysAgo)->get();
+        $suborder = SubOrder::where('created_at', '>=', $tenDaysAgo)->get();
+        $supplier = Supplier::where('created_at', '>=', $tenDaysAgo)->get();
+        $unit = Unit::where('created_at', '>=', $tenDaysAgo)->get();
 
         $response = Http::timeout(120)->post('https://topcars.tj/api/pos-get-data', [
             'application' => $application,
