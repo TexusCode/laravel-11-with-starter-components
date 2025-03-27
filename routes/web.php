@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Azs\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
@@ -17,5 +18,5 @@ Route::middleware('auth')->group(function () {
     })->name('pin.confirm');
 });
 
-// Route::post('/azs-send-data', [ApiController::class, 'azsSendData'])->name('azsSendData');
+Route::get('/updated-data', [DashboardController::class, 'updatedData'])->name('updatedData');
 

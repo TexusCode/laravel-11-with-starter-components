@@ -14,6 +14,10 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
+    public function updatedData()
+    {
+        return view('updated-data');
+    }
     public function dash()
     {
         $currentMonth = Carbon::now()->month;
