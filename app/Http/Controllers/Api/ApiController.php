@@ -113,6 +113,8 @@ class ApiController extends Controller
                 foreach ($sms as $sms) {
                     $smsController = new SmsController();
                     $smsResponse = $smsController->sendSms($sms->phone, $sms->text);
+                    $sms->status = 'send';
+                    $sms->save();
                     // Возвращаем представление с сообщением об успешном снятии
                 }
             }

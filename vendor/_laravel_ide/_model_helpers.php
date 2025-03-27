@@ -5676,6 +5676,18 @@ namespace App\Models {
     /**
      * App\Models\Sms
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $status
+     * @property string $text
+     * @property string $phone
+     * @property int $id
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms wherePhone($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms whereText($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms whereStatus($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Sms>|Sms query()
