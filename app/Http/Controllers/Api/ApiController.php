@@ -33,6 +33,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
+use Illuminate\Support\Carbon as Carbom;
 class ApiController extends Controller
 {
     public function azsSendData(Request $request)
@@ -97,29 +98,28 @@ class ApiController extends Controller
                 Sms::class => 'sms',
             ];
 
-            // Проходим по всем моделям и синхронизируем данные
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Отключаем автоматическое обновление timestamps
+                        // Отключаем защиту полей
                         $model::unguard();
+
+                        // Конвертируем даты, если они есть
+                        if (isset($item['created_at'])) {
+                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
+                        }
+                        if (isset($item['updated_at'])) {
+                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        }
 
                         $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
 
-                        // Вручную устанавливаем timestamps, если они есть в переданных данных
-                        if (isset($item['created_at'])) {
-                            $record->created_at = $item['created_at'];
-                        }
-                        if (isset($item['updated_at'])) {
-                            $record->updated_at = $item['updated_at'];
-                        }
-
                         $record->save();
 
-                        // Включаем обратно защиту атрибутов
+                        // Включаем защиту полей обратно
                         $model::reguard();
                     }
                 }
@@ -132,6 +132,7 @@ class ApiController extends Controller
                     $sms->status = 'send';
                     $sms->save();
                 }
+                Sms::truncate();
             }
 
             return response()->json(['message' => 'Данные успешно сохранены'], 200);
@@ -227,25 +228,25 @@ class ApiController extends Controller
             foreach ($models as $model => $key) {
                 if (isset($data[$key]) && is_array($data[$key])) {
                     foreach ($data[$key] as $item) {
-                        // Отключаем автоматическое обновление timestamps
+                        // Отключаем защиту полей
                         $model::unguard();
+
+                        // Конвертируем даты, если они есть
+                        if (isset($item['created_at'])) {
+                            $item['created_at'] = Carbom::parse($item['created_at'])->format('Y-m-d H:i:s');
+                        }
+                        if (isset($item['updated_at'])) {
+                            $item['updated_at'] = Carbom::parse($item['updated_at'])->format('Y-m-d H:i:s');
+                        }
 
                         $record = $model::updateOrCreate(
                             ['id' => $item['id']], // Условие для обновления (по id)
                             $item // Данные для обновления или создания
                         );
 
-                        // Вручную устанавливаем timestamps, если они есть в переданных данных
-                        if (isset($item['created_at'])) {
-                            $record->created_at = $item['created_at'];
-                        }
-                        if (isset($item['updated_at'])) {
-                            $record->updated_at = $item['updated_at'];
-                        }
-
                         $record->save();
 
-                        // Включаем обратно защиту атрибутов
+                        // Включаем защиту полей обратно
                         $model::reguard();
                     }
                 }
