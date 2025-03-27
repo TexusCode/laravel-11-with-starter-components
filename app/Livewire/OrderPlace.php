@@ -74,6 +74,7 @@ class OrderPlace extends Component
         $order->total = $this->total;
         $order->discount = $this->discount;
         $order->payment_type = $this->paymentType;
+        $order->payment_status = 'Оплачено';
         $order->note = $this->note;
         $order->save();
         $this->cart->delete();

@@ -27,7 +27,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-    'asset_url' => env('ASSET_URL', '/public'),
+    // 'asset_url' => env('ASSET_URL', '/public'),
 
     /*
     |--------------------------------------------------------------------------

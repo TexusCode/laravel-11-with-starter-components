@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')->group(function () {
                 require base_path('routes/admin.php');
                 require base_path('routes/pos.php');
+                require base_path('routes/azs.php');
             });
         },
 

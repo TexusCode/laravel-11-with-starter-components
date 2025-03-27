@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset('assets/logo/Favicon Green.svg') }}" type="image/x-icon">
-    <title>Texus.POS - {{ $title ?? "Управление продажами и товарами" }}</title>
+    <title>Texus.POS - {{ $title ?? 'Управление продажами и товарами' }}</title>
     @include('global.vite')
     @yield('styles')
 </head>
 
-<body>
+<body class="font-serif">
 
     <div class="sticky top-0 inset-x-0 z-20 bg-green-20 border-y px-4 sm:px-6 lg:px-8 lg:hidden">
         <div class="flex items-center py-2 justify-between">
@@ -22,9 +22,9 @@
                 class="size-8 flex justify-center items-center gap-x-2 border border-gray-200 text-gray-800 hover:text-gray-500 rounded-lg focus:outline-none focus:text-gray-500 disabled:opacity-50 disabled:pointer-events-none"
                 aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-application-sidebar"
                 aria-label="Toggle navigation" data-hs-overlay="#hs-application-sidebar">
-                <svg class="stroke-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
+                <svg class="stroke-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M4 6l16 0" />
                     <path d="M4 12l16 0" />
